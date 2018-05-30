@@ -1,6 +1,6 @@
 ---
 - name:
-  hosts: {{ inventory_hostname }}
+  hosts: "{{ inventory_hostname }}"
   gather_facts: no
   connection: local
   vars:
