@@ -1,0 +1,16 @@
+---
+- name:
+  hosts: "{{ inventory_hostname }}"
+  gather_facts: no
+  connection: local
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+
+  tasks:    
+  - name: Add Host IP To Network Object
+      asa_config:
+        lines:
+          - host {{ network_object_ipv4 }}
+        parents: ['object network {{ object_name }}']
+        provider: "{{ cli }}"
