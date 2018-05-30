@@ -1,0 +1,19 @@
+---
+- name:
+  hosts: {{ inventory_hostname }}
+  gather_facts: no
+  connection: local
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+      username: zgould
+      password: '@R3birth!!'
+      authorize: yes
+      auth_pass: '@R3birth!!'
+
+  tasks:
+    - name: Create Network Object
+      asa_config:
+        lines:
+          - object network {{ object_name }}
+        provider: "{{ cli }}"
