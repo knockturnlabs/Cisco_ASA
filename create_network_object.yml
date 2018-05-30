@@ -3,13 +3,13 @@
   hosts: "{{ inventory_hostname }}"
   gather_facts: no
   connection: local
-  vars:
-    cli:
-      host: "{{ inventory_hostname }}"
-      username: "{{ ANSIBLE_NET_USERNAME }}"
-      password: "{{ ANSIBLE_NET_PASSWORD }}"
-      authorize: "{{ ANSIBLE_NET_AUTHORIZE }}"
-      auth_pass: "{{ ANSIBLE_NET_AUTH_PASS }}"
+#  vars:
+#    cli:
+#      host: "{{ inventory_hostname }}"
+#      username: "{{ ANSIBLE_NET_USERNAME }}"
+#      password: "{{ ANSIBLE_NET_PASSWORD }}"
+#      authorize: "{{ ANSIBLE_NET_AUTHORIZE }}"
+#      auth_pass: "{{ ANSIBLE_NET_AUTH_PASS }}"
 
   tasks:
     - name: Create Network Object
