@@ -6,11 +6,13 @@
   vars:
     cli:
       host: "{{ inventory_hostname }}"
+    network_object_ipv4: 8.8.8.8
+    object_name: test-firewall
 
   tasks:    
   - name: Add Host IP To Network Object
-      asa_config:
-        lines:
-          - host {{ network_object_ipv4 }}
-        parents: ['object network {{ object_name }}']
-        provider: "{{ cli }}"
+    asa_config:
+      lines:
+        - host "{{ network_object_ipv4 }}"
+      parents: ['object network {{ object_name }}']
+      provider: "{{ cli }}"
