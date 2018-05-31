@@ -1,0 +1,28 @@
+---
+- name: Configure NAT on Network Object
+  hosts: "{{ inventory_hostname }}"
+  gather_facts: no
+  connection: local
+  vars:
+#    in_interface:
+#    out_interface:
+#    ip_address: 
+#    service: 
+#    protocol:
+#    original_port:
+#    translate_port:
+#    object_name:
+    cli:
+      host: "{{ inventory_hostname }}"
+#      username: 
+#      password:
+#      authorize:
+#      auth_pass:
+
+  tasks:
+    - name: Configure NAT on Network Object
+      asa_config:
+        lines:
+          - nat ({{ in_interface }},{{ out_interface }}) static {{ ip_address }} {{ service|default(omit) }} {{ protocol|default(omit) }} {{ original_port|default(omit) }} {{ translate_port|default(omit) }}
+        parents: ['object network {{ object_name }}']
+        provider: "{{ cli }}"

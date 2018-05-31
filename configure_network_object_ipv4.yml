@@ -6,8 +6,6 @@
   vars:
     cli:
       host: "{{ inventory_hostname }}"
-    network_object_ipv4: 8.8.8.8
-    object_name: test-firewall
 
   tasks:    
   - name: Add Host IP To Network Object
