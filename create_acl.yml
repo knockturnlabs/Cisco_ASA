@@ -1,0 +1,27 @@
+---
+- name: Configure ACL
+  hosts: "{{ inventory_hostname }}"
+  gather_facts: no
+  connection: local
+  vars:
+#    in_interface:
+#    out_interface:
+#    ip_address: 
+#    service: 
+#    protocol:
+#    original_port:
+#    translate_port:
+#    object_name:
+    cli:
+      host: "{{ inventory_hostname }}"
+#      username: 
+#      password:
+#      authorize:
+#      auth_pass:
+
+  tasks:
+    - name: Add ACL For Access
+      asa_acl:
+        lines:
+          - access-list acl_out permit tcp any object ad eq 3389
+        provider: "{{ cli }}"
