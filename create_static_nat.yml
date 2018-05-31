@@ -23,6 +23,6 @@
     - name: Configure NAT on Network Object
       asa_config:
         lines:
-          - nat ({{ in_interface }},{{ out_interface }}) static {{ ip_address }} {{ service|default(omit) }} {{ protocol|default(omit) }} {{ original_port|default(omit) }} {{ translate_port|default(omit) }}
+          - nat ({{ in_interface }},{{ out_interface }}) static {{ ip_address }} {{ service|default('') }} {{ protocol|default('') }} {{ original_port|default('') }} {{ translate_port|default('') }}
         parents: ['object network {{ object_name }}']
         provider: "{{ cli }}"
