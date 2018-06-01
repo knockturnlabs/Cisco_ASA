@@ -8,9 +8,7 @@
 #    line_number:
 #    permit_deny: 
 #    acl_protocol: 
-#    object_type_from:
 #    from_host: 
-#    object_type_to:
 #    to_host: 
 #    port_number:
     cli:
@@ -24,5 +22,5 @@
     - name: Configure ACL
       asa_acl:
         lines:
-          - access-list {{ interface_name }} {{ line_number|default("") }} {{ permit_deny }} {{ acl_protocol }} {{ object_type_from|default("") }} {{ from_host }} {{ object_type_to|default("") }} {{ to_host }} eq {{ port_number }}
+          - access-list {{ interface_name }} {{ line_number|default("") }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} eq {{ port_number }}
         provider: "{{ cli }}"
