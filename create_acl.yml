@@ -1,6 +1,6 @@
 ---
 - name: Configure ACL
-  hosts: "{{ inventory_hostname }}"
+  hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:

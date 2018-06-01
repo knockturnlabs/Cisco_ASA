@@ -1,15 +1,15 @@
 ---
 - name: Cisco ASA Test
-  hosts: asa
+  hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:
     cli:
       host: "{{ inventory_hostname }}"
-      username: zgould
-      password: '@R3birth!!'
+      username: ###
+      password: ###
       authorize: yes
-      auth_pass: '@R3birth!!'
+      auth_pass: ###
   
   tasks:
     - name: Create Network Object
