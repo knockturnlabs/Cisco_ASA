@@ -4,24 +4,24 @@
   gather_facts: no
   connection: local
   vars:
-#    in_interface:
-#    out_interface:
-#    ip_address: 
-#    service: 
-#    protocol:
-#    original_port:
-#    translate_port:
-#    object_name:
+#    interface_name:
+#    permit_deny: 
+#    acl_protocol: 
+#    object_type_from:
+#    from_host: 
+#    object_type_to:
+#    to_host: 
+#    port_number:
     cli:
       host: "{{ inventory_hostname }}"
 #      username: 
-#      password:
+#      password: 
 #      authorize:
 #      auth_pass:
 
   tasks:
-    - name: Add ACL For Access
+    - name: Configure ACL
       asa_acl:
         lines:
-          - access-list acl_out permit tcp any object ad eq 3389
+          - access-list {{ interface_name }} {{ permit_deny }} {{ acl_protocol }} {{ object_type_from|default("") }} {{ from_host }} {{ object_type_to|default("") }} {{ to_host }} eq {{ port_number }}
         provider: "{{ cli }}"
