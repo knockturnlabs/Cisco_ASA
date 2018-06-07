@@ -1,7 +1,6 @@
 ---
 - name: ASA Backup
-#  hosts: "{{ host_name }}"
-  hosts: firewall
+  hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:
