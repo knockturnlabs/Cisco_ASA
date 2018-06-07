@@ -2,11 +2,15 @@
 - name: ASA Backup
   hosts: "{{ host_name }}"
   gather_facts: no
-  connection: local
   vars:
-#    backup_directory:
+#    remote_backup_host: 
+#    remote_backup_dir: 
     cli:
       host: "{{ inventory_hostname }}"
+#      username: 
+#      password: 
+#      authorize: 
+#      auth_pass: 
       
   tasks:
     - name: Retrieve Running-Config
@@ -16,7 +20,8 @@
         provider: "{{ cli }}"
       register: show_run
 
-    - name: Copy Running-Config To Backup Directory
+    - name: Copy Running-Config To Backup Server
       copy:
         content: '{{ show_run.stdout[0] }}'
-        dest: /{{ backup_directory }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt
+        dest: /{{ remote_backup_dir }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt
+      delegate_to: '{{ remote_backup_host }}'
