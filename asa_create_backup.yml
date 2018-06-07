@@ -1,12 +1,14 @@
 ---
 - name: ASA Backup
-  hosts: "{{ host_name }}"
+#  hosts: "{{ host_name }}"
+  hosts: firewall
   gather_facts: no
   connection: local
   vars:
+#    backup_directory:
     cli:
       host: "{{ inventory_hostname }}"
-
+      
   tasks:
     - name: Retrieve Running-Config
       asa_command:
@@ -18,4 +20,4 @@
     - name: Copy Running-Config To Backup Directory
       copy:
         content: '{{ show_run.stdout[0] }}'
-        dest: {{ backup_directory }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt
+        dest: /{{ backup_directory }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt
