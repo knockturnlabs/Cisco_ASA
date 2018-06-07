@@ -1,0 +1,37 @@
+---
+- name: Get Backup
+#  hosts: "{{ host_name }}"
+  hosts: firewall
+  gather_facts: no
+  connection: local
+  vars:
+#    interface_name:
+#    line_number:
+#    permit_deny: 
+#    acl_protocol: 
+#    from_host: 
+#    to_host: 
+#    port_number:
+    cli:
+      host: "{{ inventory_hostname }}"
+      username: zgould
+      password: '@R3birth!!'
+      authorize: yes
+      auth_pass: '@R3birth!!'
+
+  tasks:
+    - name: Get Backup
+      asa_command:
+        commands:
+          - more system:running-config
+        provider: "{{ cli }}"
+      register: show_run
+
+
+    - debug:
+        msg: '{{ show_run.stdout[0] }}'
+
+    - name: copy
+      copy:
+        content: '{{ show_run.stdout[0] }}'
+        dest: /playbooks/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt

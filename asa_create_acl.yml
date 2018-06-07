@@ -1,0 +1,26 @@
+---
+- name: Configure ACL
+  hosts: "{{ host_name }}"
+  gather_facts: no
+  connection: local
+  vars:
+#    interface_name:
+#    line_number:
+#    permit_deny: 
+#    acl_protocol: 
+#    from_host: 
+#    to_host: 
+#    port_number:
+    cli:
+      host: "{{ inventory_hostname }}"
+#      username: 
+#      password: 
+#      authorize:
+#      auth_pass:
+
+  tasks:
+    - name: Configure ACL
+      asa_acl:
+        lines:
+          - access-list {{ interface_name }} {{ line_number|default("") }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} eq {{ port_number }}
+        provider: "{{ cli }}"

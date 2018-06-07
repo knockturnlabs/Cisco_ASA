@@ -1,0 +1,19 @@
+---
+- name:
+  hosts: "{{ host_name }}"
+  gather_facts: no
+  connection: local
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+#      username: "{{ ANSIBLE_NET_USERNAME }}"
+#      password: "{{ ANSIBLE_NET_PASSWORD }}"
+#      authorize: "{{ ANSIBLE_NET_AUTHORIZE }}"
+#      auth_pass: "{{ ANSIBLE_NET_AUTH_PASS }}"
+
+  tasks:
+    - name: Create Network Object
+      asa_config:
+        lines:
+          - object network {{ object_name }}
+        provider: "{{ cli }}"
