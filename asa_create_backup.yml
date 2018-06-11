@@ -23,5 +23,5 @@
     - name: Copy Running-Config To Backup Server
       copy:
         content: '{{ show_run.stdout[0] }}'
-        dest: /{{ remote_backup_dir }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%d-%m-%Y') }}.txt
+        dest: /{{ remote_backup_dir }}/{{ inventory_hostname }}-{{ lookup('pipe','date +%m-%d-%Y') }}.txt
       delegate_to: '{{ remote_backup_host }}'
