@@ -12,8 +12,8 @@
 #      auth_pass: "{{ ANSIBLE_NET_AUTH_PASS }}"
 
   tasks:
-    - name: Create Network Object
+    - name: Create Network Object Group
       asa_config:
         lines:
-          - object network {{ object_name }}
+          - object-group network {{ object_group_name }}
         provider: "{{ cli }}"
