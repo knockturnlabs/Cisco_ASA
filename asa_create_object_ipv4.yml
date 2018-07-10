@@ -8,9 +8,9 @@
       host: "{{ inventory_hostname }}"
 
   tasks:    
-  - name: Add Host IP To Network Object
+  - name: Add Host/Subnet IP To Network Object
     asa_config:
       lines:
-        - host {{ network_object_ipv4 }}
+        - {{ host_or_subnet }} {{ network_object_ipv4 }}
       parents: ['object network {{ object_name }}']
       provider: "{{ cli }}"
