@@ -1,0 +1,27 @@
+---
+- name: ASA Ad-Hoc Commands
+  hosts: "{{ host_name }}"
+  gather_facts: no
+  vars:
+#    remote_backup_host:
+#    remote_backup_dir:
+    cli:
+      host: "{{ inventory_hostname }}"
+#      username:
+#      password:
+#      authorize:
+#      auth_pass:
+
+  tasks:
+    - name: Run Ad-Hoc Command
+      asa_command:
+        commands:
+          - '{{ asa_adhoc_command }}'
+        provider: "{{ cli }}"
+      register: asa_command_results
+
+    - name: Command Results
+      debug:
+        msg: '{{ asa_command_results.stdout[0] }}'
+      when: asa_command_results is defined
+
