@@ -4,6 +4,7 @@
   gather_facts: no
   connection: local
   vars:
+    eq: '(eq == 'eq' if port_number is defined else eq == '')'
 #    interface_name:
 #    line_number:
 #    permit_deny: 
@@ -22,5 +23,5 @@
     - name: Configure ACL
       asa_acl:
         lines:
-          - access-list {{ interface_name }} {{ line_number|default("") }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} {{ (eq == 'eq' if port_number is defined else eq == '') }} {{ port_number }}
+          - access-list {{ interface_name }} {{ line_number|default("") }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} {{ eq }} {{ port_number }}
         provider: "{{ cli }}"
