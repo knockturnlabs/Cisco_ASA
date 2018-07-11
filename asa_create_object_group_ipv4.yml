@@ -11,6 +11,7 @@
   - name: Add Network-Object IP To Network Object
     asa_config:
       lines:
-        - network-object {{ host_command|default("") }} {{ network_object_ipv4 }}
+        - network-object {{ host_command|default("") }} {{ item }}
       parents: ['object-group network {{ object_group_name }}']
       provider: "{{ cli }}"
+    with_items: "{{ network_object_ipv4 }}"

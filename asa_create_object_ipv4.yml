@@ -6,7 +6,7 @@
   vars:
     cli:
       host: "{{ inventory_hostname }}"
-
+      
   tasks:    
   - name: Add Host/Subnet IP To Network Object
     asa_config:
