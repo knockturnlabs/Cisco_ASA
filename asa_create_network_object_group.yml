@@ -15,5 +15,6 @@
     - name: Create Network Object Group
       asa_config:
         lines:
-          - object-group network {{ object_group_name }}
+          - object-group network {{ item }}
         provider: "{{ cli }}"
+      with_items: "{{ object_group_name.split() }}"
