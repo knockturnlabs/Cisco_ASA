@@ -24,5 +24,5 @@
     - name: Configure ACL
       asa_acl:
         lines:
-          - access-list {{ interface_name }} {{ line_number }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} {{ eq }} {{ port_number }}
+          - access-list {{ interface_name }} {{ line_number }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} {{ eq }} {{ port_number|default('') }}
         provider: "{{ cli }}"
