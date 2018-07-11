@@ -14,4 +14,4 @@
         - network-object {{ host_command|default("") }} {{ item }}
       parents: ['object-group network {{ object_group_name }}']
       provider: "{{ cli }}"
-    with_items: "{{ network_object_ipv4.split('\n') }}"
+    with_items: "{{ network_object_ipv4.splitlines() }}"
