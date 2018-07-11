@@ -2,15 +2,10 @@
 - name: ASA Ad-Hoc Commands
   hosts: "{{ host_name }}"
   gather_facts: no
+  connection: local
   vars:
-#    remote_backup_host:
-#    remote_backup_dir:
     cli:
       host: "{{ inventory_hostname }}"
-#      username:
-#      password:
-#      authorize:
-#      auth_pass:
 
   tasks:
     - name: Run Ad-Hoc Command
