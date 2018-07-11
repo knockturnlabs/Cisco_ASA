@@ -17,4 +17,4 @@
         lines:
           - object-group network {{ item }}
         provider: "{{ cli }}"
-      with_items: "{{ object_group_name.split() }}"
+      with_items: "{{ object_group_name.split('\n') }}"
