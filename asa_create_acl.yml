@@ -4,7 +4,7 @@
   gather_facts: no
   connection: local
   vars:
-    eq: "{% if port_number > 0 %} eq {% else %}  {% endif %}"
+    eq: "{% if port_number|length > 0 %} eq {% else %}  {% endif %}"
 #    interface_name: 
 #    line: 
     line_number: "{% if line|length > 0 %} line {{ line }} {% else %}  {% endif %}"
