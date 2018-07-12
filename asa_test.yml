@@ -1,22 +1,31 @@
 ---
-- name: Cisco ASA Test
+- name: ASA Ad-Hoc Commands
   hosts: firewall
   gather_facts: no
   connection: local
   vars:
+    asa_adhoc_command: |-
+      sh run | i object
+      sh version | i Ser
     cli:
       host: "{{ inventory_hostname }}"
       username: zgould
       password: '@R3birth!!'
       authorize: yes
       auth_pass: '@R3birth!!'
-  
+
   tasks:
-    - name: Get Output
+    - name: Run Ad-Hoc Command
       asa_command:
         commands:
-          - show version
+          - '{{ item }}'
         provider: "{{ cli }}"
-      register: result
-      
-    - debug: msg="{{ result.stdout[0] }}"
+      register: asa_command_results
+      with_items: "{{ asa_adhoc_command.splitlines() }}"
+
+    - name: Command Results
+      debug:
+        msg: '{{ item.stdout_lines }}'
+      when: asa_command_results is defined
+      with_items: "{{ asa_command_results.results }}"
+ 

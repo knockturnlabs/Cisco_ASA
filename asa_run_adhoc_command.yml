@@ -18,6 +18,7 @@
 
     - name: Command Results
       debug:
-        msg: '{{ asa_command_results.stdout_lines }}'
+        msg: '{{ item.stdout_lines }}'
       when: asa_command_results is defined
+      with_items: "{{ asa_command_results.results }}"
 
