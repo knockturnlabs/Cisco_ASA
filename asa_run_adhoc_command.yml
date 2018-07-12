@@ -19,6 +19,5 @@
     - name: Command Results
       debug:
         msg: '{{ item.stdout_lines }}'
-      when: asa_command_results is defined
       with_items: "{{ asa_command_results.results }}"
 
