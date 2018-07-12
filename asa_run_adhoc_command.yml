@@ -14,7 +14,7 @@
           - '{{ item }}'
         provider: "{{ cli }}"
       register: asa_command_results
-      with_items: "{{ asa_adhoc_command.splitline() }}"
+      with_items: "{{ asa_adhoc_command.splitlines() }}"
 
     - name: Command Results
       debug:
