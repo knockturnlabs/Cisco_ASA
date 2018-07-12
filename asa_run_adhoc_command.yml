@@ -11,9 +11,10 @@
     - name: Run Ad-Hoc Command
       asa_command:
         commands:
-          - '{{ asa_adhoc_command }}'
+          - '{{ item }}'
         provider: "{{ cli }}"
       register: asa_command_results
+      with_items: "{{ asa_adhoc_command.splitline() }}"
 
     - name: Command Results
       debug:
