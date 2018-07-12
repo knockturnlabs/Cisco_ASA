@@ -1,0 +1,79 @@
+---
+- name:
+  hosts: firewall
+  gather_facts: no
+  connection: local
+  vars:
+    vpn_group_local: test-vpn-local
+    vpn_group_remote: test-vpn-remote
+    vpn_group_local_ipv4: |-
+      192.168.0.0 255.255.255.0
+      192.169.0.0 255.255.255.0
+    vpn_group_remote_ipv4: |-
+      177.16.0.0 255.255.255.0
+      188.18.0.0 255.255.255.0
+    vpn_acl_group: test-vpn
+    crypt_number: 5
+    vpn_peer_ip: 20.20.20.20
+    vpn_encrypt_alg: ESP-AES-256-SHA
+    vpn_lifetime_sec: 86400
+    vpn_psk: blahblahblah
+    cli:
+      host: "{{ inventory_hostname }}"
+      username: zgould
+      password: '@R3birth!!'
+      authorize: yes
+      auth_pass: '@R3birth!!'
+
+  tasks:
+    - name: Create Network Object Group - Local
+      asa_config:
+        lines:
+          - object-group network {{ vpn_group_local }}
+        provider: "{{ cli }}"
+
+    - name: Create Network Object Group - Remote
+      asa_config:
+        lines:
+          - object-group network {{ vpn_group_remote }}
+        provider: "{{ cli }}"
+
+    - name: Add IP(s) To Network Object Group - Local
+      asa_config:
+        lines:
+          - network-object {{ host_command|default("") }} {{ item }}
+        parents: ['object-group network {{ vpn_group_local }}']
+        provider: "{{ cli }}"
+      with_items: "{{ vpn_group_local_ipv4.splitlines() }}"
+
+    - name: Add IP(s) To Network Object Group - Remote
+      asa_config:
+        lines:
+          - network-object {{ host_command|default("") }} {{ item }}
+        parents: ['object-group network {{ vpn_group_remote }}']
+        provider: "{{ cli }}"
+      with_items: "{{ vpn_group_remote_ipv4.splitlines() }}"
+
+    - name: Configure ACL
+      asa_acl:
+        lines:
+          - access-list {{ vpn_acl_group }} permit ip object-group {{ vpn_group_local }} object-group {{ vpn_group_remote }}
+        provider: "{{ cli }}"
+
+    - name: Create Crypto Map
+      asa_config:
+        lines:
+          - crypto map outside-crypt {{ crypt_number }} match address {{ vpn_acl_group }}
+          - crypto map outside-crypt {{ crypt_number }} set peer {{ vpn_peer_ip }}
+          - crypto map outside-crypt {{ crypt_number }} set ikev1 transform-set {{ vpn_encrypt_alg }}
+          - crypto map outside-crypt {{ crypt_number }} set security-association lifetime seconds {{ vpn_lifetime_sec }}
+        provider: "{{ cli }}"
+
+    - name: Create Tunnel Group
+      asa_config:
+        lines:
+          - tunnel-group {{ vpn_peer_ip }} type ipsec-l2l
+          - tunnel-group {{ vpn_peer_ip }} ipsec-attributes
+          - pre-shared-key {{ vpn_psk }}
+        provider: "{{ cli }}"
+
