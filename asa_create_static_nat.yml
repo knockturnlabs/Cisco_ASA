@@ -1,28 +1,16 @@
 ---
-- name: Configure NAT on Network Object
+- name: Configure Static NAT on Network Object
   hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:
-#    in_interface:
-#    out_interface:
-#    ip_address: 
-#    service: 
-#    protocol:
-#    original_port:
-#    translate_port:
-#    object_name:
     cli:
       host: "{{ inventory_hostname }}"
-#      username: 
-#      password:
-#      authorize:
-#      auth_pass:
 
   tasks:
-    - name: Configure NAT on Network Object
+    - name: Configure Static NAT on Network Object
       asa_config:
         lines:
-          - nat ({{ in_interface }},{{ out_interface }}) static {{ ip_address }} {{ service|default('') }} {{ protocol|default('') }} {{ original_port|default('') }} {{ translate_port|default('') }}
+          - nat ({{ in_interface }},{{ out_interface }}) static {{ external_address }}
         parents: ['object network {{ object_name }}']
         provider: "{{ cli }}"
