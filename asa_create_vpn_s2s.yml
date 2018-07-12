@@ -1,29 +1,11 @@
 ---
 - name:
-  hosts: firewall
+  hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:
-    vpn_group_local: test-vpn-local
-    vpn_group_remote: test-vpn-remote
-    vpn_group_local_ipv4: |-
-      192.168.0.0 255.255.255.0
-      192.169.0.0 255.255.255.0
-    vpn_group_remote_ipv4: |-
-      177.16.0.0 255.255.255.0
-      188.18.0.0 255.255.255.0
-    vpn_acl_group: test-vpn
-    crypt_number: 5
-    vpn_peer_ip: 20.20.20.20
-    vpn_encrypt_alg: ESP-AES-256-SHA
-    vpn_lifetime_sec: 86400
-    vpn_psk: blahblahblah
     cli:
       host: "{{ inventory_hostname }}"
-      username: zgould
-      password: '@R3birth!!'
-      authorize: yes
-      auth_pass: '@R3birth!!'
 
   tasks:
     - name: Create Network Object Group - Local
