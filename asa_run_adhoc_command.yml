@@ -18,6 +18,5 @@
 
     - name: Command Results
       debug:
-        msg: '{{ item.stdout_lines[0] }}'
-      with_items: "{{ asa_command_results.results }}"
+        msg: '{{ asa_command_results.stdout }}'
 
