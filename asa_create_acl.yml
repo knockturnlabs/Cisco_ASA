@@ -26,3 +26,8 @@
         lines:
           - access-list {{ interface_name }} {{ line_number }} {{ permit_deny }} {{ acl_protocol }} {{ from_host }} {{ to_host }} {{ eq }} {{ port_number }}
         provider: "{{ cli }}"
+      register: results
+
+   - name: Verification
+     debug:
+       msg: '{{ results.stdout_lines }}'
