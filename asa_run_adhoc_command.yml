@@ -11,18 +11,20 @@
     - name: Run Ad-Hoc Command
       asa_command:
         commands:
-          - '{{ item }}'
+          - '{{ asa_adhoc_command }}'
         provider: "{{ cli }}"
       register: asa_command_results
-      with_items: "{{ asa_adhoc_command.splitlines() }}"
-
-#    - name: Command Results
-#      debug:
-#        msg: '{{ asa_command_results.stdout }}'
 
     - name: Command Results
       debug:
-        msg: '{{ item.stdout_lines }}'
-      when: asa_command_results is defined
-      with_items: '{{ asa_command_results.results }}'
+        msg: '{{ asa_command_results.stdout_lines }}'
+
+###### Multi Ad-Hoc Commands ###############
+### Below Code Works On CLI, but NOT AWX ####
+#############################################
+#    - name: Command Results
+#      debug:
+#        msg: '{{ item.stdout_lines }}'
+#      when: asa_command_results is defined
+#      with_items: '{{ asa_command_results.results }}'
 
