@@ -1,6 +1,6 @@
 ---
 - name: ASA Logoff VPN User/Peer
-  hosts: firewall
+  hosts: {{ host_name }}
   gather_facts: no
   connection: local
   vars:
