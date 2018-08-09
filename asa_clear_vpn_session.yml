@@ -1,0 +1,16 @@
+---
+- name: ASA Clear VPN Session
+  hosts: firewall
+  gather_facts: no
+  connection: local
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+
+  tasks:
+    - name: Clear VPN Session
+      asa_command:
+        commands:
+          - vpn-sessiondb logoff '{{ vpn_session_type }}' noconfirm
+        provider: "{{ cli }}"
+
