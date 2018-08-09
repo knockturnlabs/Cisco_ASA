@@ -1,6 +1,6 @@
 ---
 - name: ASA Clear VPN Session
-  hosts: {{ host_name }}
+  hosts: "{{ host_name }}"
   gather_facts: no
   connection: local
   vars:
