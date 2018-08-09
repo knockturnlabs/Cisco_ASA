@@ -11,6 +11,6 @@
     - name: Logoff VPN User/Peer
       asa_command:
         commands:
-          - vpn-sessiondb logoff '{{ vpn_session_type }}' '{{ host_or_peer }}' noconfirm
+          - vpn-sessiondb logoff {{ vpn_session_type }} {{ host_or_peer }} noconfirm
         provider: "{{ cli }}"
 

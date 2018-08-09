@@ -11,6 +11,6 @@
     - name: Clear VPN Session
       asa_command:
         commands:
-          - vpn-sessiondb logoff '{{ vpn_session_type }}' noconfirm
+          - vpn-sessiondb logoff {{ vpn_session_type }} noconfirm
         provider: "{{ cli }}"
 
